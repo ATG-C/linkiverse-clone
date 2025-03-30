@@ -1,6 +1,6 @@
 
 import { Bell, Home, MessageSquare, Search, Users, Briefcase } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function Navbar() {
+  const location = useLocation();
+  
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
       <div className="container flex h-16 items-center justify-between">
@@ -31,19 +37,38 @@ export function Navbar() {
 
         <nav className="flex items-center gap-4">
           <div className="hidden md:flex items-center gap-6">
-            <Link to="/" className="flex flex-col items-center text-muted-foreground hover:text-foreground">
+            <Link 
+              to="/" 
+              className={`flex flex-col items-center ${isActive("/") ? "text-foreground border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"}`}
+            >
               <Home className="h-5 w-5" />
               <span className="text-xs">Home</span>
             </Link>
-            <Link to="/network" className="flex flex-col items-center text-muted-foreground hover:text-foreground">
+            <Link 
+              to="/network" 
+              className={`flex flex-col items-center ${isActive("/network") ? "text-foreground border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"}`}
+            >
               <Users className="h-5 w-5" />
               <span className="text-xs">Network</span>
             </Link>
-            <Link to="/messages" className="flex flex-col items-center text-muted-foreground hover:text-foreground">
-              <MessageSquare className="h-5 w-5" />
-              <span className="text-xs">Messages</span>
+            <Link 
+              to="/jobs" 
+              className={`flex flex-col items-center ${isActive("/jobs") ? "text-foreground border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"}`}
+            >
+              <Briefcase className="h-5 w-5" />
+              <span className="text-xs">Jobs</span>
             </Link>
-            <Link to="/notifications" className="flex flex-col items-center text-muted-foreground hover:text-foreground">
+            <Link 
+              to="/messaging" 
+              className={`flex flex-col items-center ${isActive("/messaging") ? "text-foreground border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"}`}
+            >
+              <MessageSquare className="h-5 w-5" />
+              <span className="text-xs">Messaging</span>
+            </Link>
+            <Link 
+              to="/notifications" 
+              className={`flex flex-col items-center ${isActive("/notifications") ? "text-foreground border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"}`}
+            >
               <Bell className="h-5 w-5" />
               <span className="text-xs">Notifications</span>
             </Link>
